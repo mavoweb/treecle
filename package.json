@@ -30,7 +30,7 @@
   "bugs": {
     "url": "https://github.com/mavoweb/treecle/issues"
   },
-  "homepage": "https://github.com/mavoweb/treecle#readme",
+  "homepage": "https://treecle.mavo.io",
   "devDependencies": {
     "@11ty/eleventy": "^2.0.1",
     "@stylistic/eslint-plugin": "latest",
