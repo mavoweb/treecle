@@ -1,5 +1,7 @@
-const BASE_FILENAME = "vastly";
-const IIFE_NAME = "Vastly";
+import pkg from "./package.json";
+
+const BASE_FILENAME = pkg.name;
+const IIFE_NAME = pkg.name.replace(/^./, $0 => $0.toUpperCase());
 
 function bundle (format, filenameAddition = "") {
 	let filename = BASE_FILENAME;

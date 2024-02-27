@@ -1,6 +1,13 @@
+<header>
+
 # 🌳 Treecle
 
-A toolbox for working with tree-like JS objects.
+Need to handle tree-like objects? We’ve got you covered!
+**Work in progress, try at your own risk.**
+
+</header>
+
+<main>
 
 Features:
 - Tree-shakable
@@ -10,7 +17,7 @@ Features:
 Utility functions for:
 - Traversal
 - Transformations
-- Searching for nodes
+- Search
 
 ## Installation
 
@@ -60,3 +67,5 @@ By default it considers all plain objects (i.e. not instances of a class other t
 import * as treecle from "./src/index.js";
 globalThis.treecle = treecle;
 </script>
+
+</main>
