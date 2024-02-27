@@ -1,0 +1,8 @@
+---
+layout: null
+permalink: "test/index.json"
+---
+[
+	{%- for test in tests %}
+	"{{ test }}"{{ "," if not loop.last }}{% endfor %}
+]
