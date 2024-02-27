@@ -1,4 +1,4 @@
-
+export {default as config}        from "./config.js";
 export * as children            from "./children.js";
 export {default as closest}     from "./closest.js";
 export {default as find}        from "./find.js";
