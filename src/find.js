@@ -6,9 +6,11 @@ import walk from "./walk.js";
  * @param {function(object): boolean} callback
  */
 export default function find (node, callback) {
-	return walk(node, node => {
-		if (callback(node)) {
-			return node;
-		}
-	}) ?? null;
+	return (
+		walk(node, (node) => {
+			if (callback(node)) {
+				return node;
+			}
+		}) ?? null
+	);
 }
