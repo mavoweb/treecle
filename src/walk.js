@@ -10,11 +10,11 @@ import { matches } from "./util.js";
  * @param { function | function[] } [o.only] Only walk nodes that match this
  * @param { function | function[] } [o.except] Ignore nodes that match this
  */
-export default function walk (node, callback, o) {
+export default function walk(node, callback, o) {
 	return _walk(node, callback, o);
 }
 
-function _walk (node, callback, o = {}, parentPath) {
+function _walk(node, callback, o = {}, parentPath) {
 	let ignored = o.except && matches(node, o.except);
 
 	if (!ignored && matches(node, o.only)) {
@@ -26,11 +26,10 @@ function _walk (node, callback, o = {}, parentPath) {
 		}
 
 		for (let childPath of children.paths(node)) {
-			const { node: child, property, index } = childPath;
+			const { node: child, path } = childPath;
 			const childResult = _walk(child, callback, o, {
 				node,
-				property,
-				index,
+				path,
 			});
 			if (childResult !== undefined) {
 				return childResult;

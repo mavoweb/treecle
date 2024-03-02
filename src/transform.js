@@ -52,12 +52,13 @@ function _transform(node, transformations, o = {}, property, parent) {
 
 		node = transformedNode;
 
-		childPaths(node).forEach((path) => {
-			node[path.property] = _transform(
-				node[path.property],
+		childPaths(node).forEach((childPath) => {
+			const [property] = childPath.path;
+			node[property] = _transform(
+				node[property],
 				transformations,
 				o,
-				path.property,
+				property,
 				node
 			);
 		});
