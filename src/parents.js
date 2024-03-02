@@ -10,10 +10,10 @@ const parentMap = new WeakMap();
  * @param {object} [options]
  * @param {boolean} [options.force] Overwrite existing `parent` properties
  */
-export function update (node, options) {
+export function updateParents (node, options) {
 	walk(node, (node, parentPath) => {
 		// Make sure to pass in null as the parentPath if the node is the root
-		let ret = set(node, parentPath ?? null, options);
+		let ret = setPath(node, parentPath ?? null, options);
 
 		if (ret === false) {
 			// We assume that if the node already has a parent, its subtree will also have parents
@@ -30,7 +30,7 @@ export function update (node, options) {
  * @param {object} [options]
  * @param {boolean} [options.force] Allow overwriting
  */
-export function set (node, parentPath, { force } = {}) {
+export function setPath (node, parentPath, { force } = {}) {
 	if (!force && parentMap.has(node)) {
 		// We assume that if the node already has a parent, its subtree will also have parents
 		return false;
@@ -44,7 +44,7 @@ export function set (node, parentPath, { force } = {}) {
  * @param {object} node
  * @returns {object | null | undefined} The parent node, or undefined if the node's parent is unknown
  */
-export function get (node) {
+export function getParent (node) {
 	const {node: parent} = parentMap.get(node) ?? {};
 	return parent;
 }
@@ -54,7 +54,7 @@ export function get (node) {
  * @param {object} node
  * @returns {object | undefined} An object containing the parent node and the property name of the child node in the parent, or undefined if the node's parent is unknown
  */
-export function path (node) {
+export function getPath (node) {
 	return parentMap.get(node);
 }
 
@@ -63,7 +63,7 @@ export function path (node) {
  * @param {object} node
  * @returns {boolean} True if the node had a parent and it was removed, false if the node had no parent
  */
-export function clear (node) {
+export function clearParent (node) {
 	return parentMap.delete(node);
 }
 
@@ -71,8 +71,8 @@ export function clear (node) {
  * Clear all parent references from a node and its descendants.
  * @param {object} node
  */
-export function clearAll (node) {
+export function clearParents (node) {
 	walk(node, (node) => {
-		clear(node);
+		clearParent(node);
 	});
 }

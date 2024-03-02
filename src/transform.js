@@ -1,6 +1,9 @@
 import { paths as childPaths } from "./children.js";
 import { matches } from "./util.js";
-import * as parents from "./parents.js";
+import {
+	clearParents,
+	updateParents,
+} from "./parents.js";
 
 /**
  * Recursively execute a callback on this node and all its children.
@@ -18,9 +21,9 @@ export default function transform (node, transformations, o) {
 	if (!Array.isArray(transformations)) {
 		transformations = [transformations];
 	}
-	parents.clearAll(node);
+	clearParents(node);
 	const transformedNode = _transform(node, transformations, o);
-	parents.update(transformedNode);
+	updateParents(transformedNode);
 	return transformedNode;
 }
 

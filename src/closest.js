@@ -1,4 +1,4 @@
-import { get as getParent } from "./parents.js";
+import { getParent } from "./parents.js";
 
 export default function closest (node, callback) {
 	let n = node;
