@@ -14,6 +14,11 @@
 	<link rel="stylesheet" href="{{ page | relative }}/assets/prism.css">
 	<link rel="stylesheet" href="{{ page | relative }}/assets/style.css">
 	{# <script src="{{ page | relative }}/assets/prism.js"></script> #}
+	<script type="module">
+		// Import Treecle as a global to facilitate experimentation
+		import * as treecle from "{{ page | relative }}/src/index.js";
+		globalThis.treecle = Treecle;
+	</script>
 </head>
 <body class="language-js{{ ' has-toc' if toc }}">
 
