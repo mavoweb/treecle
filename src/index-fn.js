@@ -1,4 +1,4 @@
-export {default as defaults}    from "./context.js";
+export *                        from "./context.js";
 export *                        from "./children.js";
 export *                        from "./parents.js";
 export {default as closest}     from "./closest.js";
