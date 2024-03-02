@@ -26,15 +26,8 @@ function _walk (node, callback, o = {}, parentPath) {
 		}
 
 		for (let childPath of children.paths(node)) {
-			const { node: child, property, index } = childPath;
-			const childResult = _walk(child, callback, o, {
-				node,
-				property,
-				index,
-			});
-			if (childResult !== undefined) {
-				return childResult;
-			}
+			const {node: child, property, index} = childPath;
+			_walk(child, callback, o, {node, property, index});
 		}
 	}
 }

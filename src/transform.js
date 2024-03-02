@@ -14,7 +14,7 @@ import * as parents from "./parents.js";
  * @param { function | function[] } [o.except] Ignore walking nodes of these types
  * @returns {object | object[]} The transformation's return value on the root node(s) of the input tree, or the root node(s) if the transformation did not return a value
  */
-export default function transform(node, transformations, o) {
+export default function transform (node, transformations, o) {
 	if (!Array.isArray(transformations)) {
 		transformations = [transformations];
 	}
@@ -24,11 +24,9 @@ export default function transform(node, transformations, o) {
 	return transformedNode;
 }
 
-function _transform(node, transformations, o = {}, property, parent) {
+function _transform (node, transformations, o = {}, property, parent) {
 	if (Array.isArray(node)) {
-		return node.map((n) =>
-			_transform(n, transformations, o, property, parent)
-		);
+		return node.map(n => _transform(n, transformations, o, property, parent));
 	}
 
 	const ignore = o.except && matches(node, o.except);
@@ -38,12 +36,7 @@ function _transform(node, transformations, o = {}, property, parent) {
 		let transformedNode = node;
 
 		for (const transformation of transformations) {
-			transformedNode = transformation?.(
-				transformedNode,
-				property,
-				parent,
-				node
-			);
+			transformedNode = transformation?.(transformedNode, property, parent, node);
 
 			if (transformedNode === undefined) {
 				transformedNode = node;
@@ -52,14 +45,8 @@ function _transform(node, transformations, o = {}, property, parent) {
 
 		node = transformedNode;
 
-		childPaths(node).forEach((path) => {
-			node[path.property] = _transform(
-				node[path.property],
-				transformations,
-				o,
-				path.property,
-				node
-			);
+		childPaths(node).forEach(path => {
+			node[path.property] = _transform(node[path.property], transformations, o, path.property, node);
 		});
 	}
 

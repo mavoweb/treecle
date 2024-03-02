@@ -9,17 +9,17 @@ import * as parents from "./parents.js";
 export default function children (node) {
 	if (Array.isArray(node)) {
 		// when node is an array, flatten to avoid nested arrays of children
-		return node.flatMap((node) => children(node));
+		return node.flatMap(node => children(node));
 	}
 
 	if (!config.isNode(node)) {
 		return [];
 	}
 
-	const childProperties = config.getChildProperties(node);
+	const childProperties = config.getProperties(node);
 
 	if (childProperties) {
-		return childProperties.flatMap((property) => node[property] ?? []);
+		return childProperties.flatMap(property => node[property] ?? []);
 	}
 	else {
 		return Object.values(node).flat();
@@ -30,7 +30,7 @@ export default function children (node) {
  * Alias of children() to better facilitate `import * as children` patterns.
  * @alias children
  */
-export { children as of };
+export {children as of};
 
 /**
  * Get a node's children and the corresponding properties and indices
@@ -40,14 +40,14 @@ export { children as of };
 export function paths (node) {
 	if (Array.isArray(node)) {
 		// when node is an array, flatten to avoid nested arrays of children
-		return node.flatMap((node) => paths(node));
+		return node.flatMap(node => paths(node));
 	}
 
 	if (!config.isNode(node)) {
 		return [];
 	}
 
-	const childProperties = config.getChildProperties(node);
+	const childProperties = config.getProperties(node);
 
 	let children = [];
 
@@ -56,15 +56,11 @@ export function paths (node) {
 			const child = node[property];
 			// When the node is an array, we want to include the index in the result
 			if (Array.isArray(child)) {
-				let childPaths = child.map((c, index) => ({
-					node: c,
-					property,
-					index,
-				}));
+				let childPaths = child.map((c, index) => ({node: c, property, index}));
 				children.push(...childPaths);
 			}
 			else {
-				children.push({ node: child, property });
+				children.push({node: child, property});
 			}
 		}
 	}
@@ -74,15 +70,11 @@ export function paths (node) {
 
 			if (Array.isArray(child)) {
 				// Why not filter first? That would affect the index.
-				let childPaths = child
-					.map((c, index) =>
-						config.isNode(c) ? { node: c, property, index } : null
-					)
-					.filter(Boolean);
+				let childPaths = child.map((c, index) => (config.isNode(c) ? {node: c, property, index} : null)).filter(Boolean);
 				children.push(...childPaths);
 			}
 			else if (config.isNode(child)) {
-				children.push({ node: child, property });
+				children.push({node: child, property});
 			}
 		}
 	}
@@ -100,9 +92,7 @@ export function paths (node) {
 export function replace (child, newChild) {
 	const parentPath = parents.path(child);
 	if (parentPath === undefined) {
-		throw new Error(
-			"Cannot replace a child node with no parent pointer. Call parents.set() on the node or parents.update() on an ancestor to add parent pointers to this node"
-		);
+		throw new Error("Cannot replace a child node with no parent pointer. Call parents.set() on the node or parents.update() on an ancestor to add parent pointers to this node");
 	}
 
 	// A root node was passed in
@@ -111,7 +101,7 @@ export function replace (child, newChild) {
 		return null;
 	}
 
-	const { property, index, node: parent } = parentPath;
+	const {property, index, node: parent} = parentPath;
 
 	if (index !== undefined) {
 		parent[property][index] = newChild;
@@ -121,6 +111,8 @@ export function replace (child, newChild) {
 	}
 
 	parents.clear(child);
-	parents.set(newChild, parentPath, { force: true });
+	parents.set(newChild, parentPath, {force: true});
 	return newChild;
 }
+
+

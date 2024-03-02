@@ -10,9 +10,8 @@ import transform from "./transform.js";
  * @param {string | string[] | function} [o.only] Only walk nodes of this type
  * @param {string | string[] | function} [o.except] Ignore walking nodes of these types
  */
-export default function map(node, mappings, o) {
-	const cloneFn = (node, property, parent, originalNode) =>
-		node === originalNode ? { ...node } : node;
+export default function map (node, mappings, o) {
+	const cloneFn = (node, property, parent, originalNode) => node === originalNode ? {...node} : node;
 	mappings = [mappings, cloneFn].flat();
 	return transform(node, mappings, o);
 }
