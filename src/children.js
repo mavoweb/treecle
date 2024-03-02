@@ -1,4 +1,4 @@
-import config from "./config.js";
+import { getContext } from "./context.js";
 import {
 	clearParent,
 	getPath,
@@ -16,11 +16,13 @@ export function children (node) {
 		return node.flatMap(node => children(node));
 	}
 
-	if (!config.isNode(node)) {
+	let context = getContext(this);
+
+	if (!context.isNode(node)) {
 		return [];
 	}
 
-	const childProperties = config.getProperties(node);
+	const childProperties = context.getProperties(node);
 
 	if (childProperties) {
 		return childProperties.flatMap(property => node[property] ?? []);
@@ -41,11 +43,13 @@ export function childPaths (node) {
 		return node.flatMap(node => childPaths(node));
 	}
 
-	if (!config.isNode(node)) {
+	let context = getContext(this);
+
+	if (!context.isNode(node)) {
 		return [];
 	}
 
-	const childProperties = config.getProperties(node);
+	const childProperties = context.getProperties(node);
 
 	let children = [];
 
@@ -68,10 +72,10 @@ export function childPaths (node) {
 
 			if (Array.isArray(child)) {
 				// Why not filter first? That would affect the index.
-				let childPaths = child.map((c, index) => (config.isNode(c) ? {node: c, property, index} : null)).filter(Boolean);
+				let childPaths = child.map((c, index) => (context.isNode(c) ? {node: c, property, index} : null)).filter(Boolean);
 				children.push(...childPaths);
 			}
-			else if (config.isNode(child)) {
+			else if (context.isNode(child)) {
 				children.push({node: child, property});
 			}
 		}

@@ -1,7 +1,9 @@
+import { getType } from "./util.js";
+
 /**
- * Settings registry. Can be imported by calling code and modified.
+ * Default settings. Can be imported by calling code and modified.
  */
-export default {
+export const defaults = {
 	/**
 	 * Which properties of a node are child nodes?
 	 * @type { function }
@@ -17,3 +19,7 @@ export default {
 		&& Object.prototype.toString.call(node) === "[object Object]"
 		&& Object.getPrototypeOf(o).constructor?.name === "Object",
 };
+
+export function getContext (context) {
+	return !context || getType(context) === "Module" || context === globalThis ? defaults : context;
+}
