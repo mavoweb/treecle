@@ -1,4 +1,4 @@
-import { paths as childPaths } from "./children.js";
+import { childPaths } from "./children.js";
 import { matches } from "./util.js";
 import {
 	clearParents,

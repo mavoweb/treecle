@@ -1,4 +1,4 @@
-import * as children from "./children.js";
+import { childPaths } from "./children.js";
 import { matches } from "./util.js";
 
 /**
@@ -25,7 +25,7 @@ function _walk (node, callback, o = {}, parentPath) {
 			return ret;
 		}
 
-		for (let childPath of children.paths(node)) {
+		for (let childPath of childPaths(node)) {
 			const {node: child, property, index} = childPath;
 			_walk(child, callback, o, {node, property, index});
 		}

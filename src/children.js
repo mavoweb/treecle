@@ -10,7 +10,7 @@ import {
  * @param {object | object[]} node or nodes
  * @returns {(object | string | number | boolean | null)[]}
  */
-export default function children (node) {
+export function children (node) {
 	if (Array.isArray(node)) {
 		// when node is an array, flatten to avoid nested arrays of children
 		return node.flatMap(node => children(node));
@@ -31,20 +31,14 @@ export default function children (node) {
 }
 
 /**
- * Alias of children() to better facilitate `import * as children` patterns.
- * @alias children
- */
-export {children as of};
-
-/**
  * Get a node's children and the corresponding properties and indices
  * @param {object | object[]} node or nodes
  * @returns {object | string | number | boolean | null[]}
  */
-export function paths (node) {
+export function childPaths (node) {
 	if (Array.isArray(node)) {
 		// when node is an array, flatten to avoid nested arrays of children
-		return node.flatMap(node => paths(node));
+		return node.flatMap(node => childPaths(node));
 	}
 
 	if (!config.isNode(node)) {
