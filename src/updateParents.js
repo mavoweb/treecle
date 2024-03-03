@@ -1,4 +1,5 @@
 import walk from "./walk.js";
+import { setPath } from "./parents.js";
 
 /**
  * Set properties on each node pointing to its parent node.
