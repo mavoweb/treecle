@@ -4,9 +4,29 @@
 import * as treecle from "./index-fn.js";
 
 export default class Treecle {
-	constructor (config) {
-		Object.assign(this, config);
+	constructor (root, config) {
+		if (arguments.length === 1) {
+			[config, root] = [root, ];
+		}
+
+		if (config) {
+			for (let setting of settings) {
+				if (config[setting]) {
+					this[setting] = config[setting];
+				}
+			}
+		}
+
+		if (root) {
+			this.root = root;
+		}
 	}
+}
+
+const settings = Object.keys(treecle.defaults);
+
+for (let setting of settings) {
+	Treecle.prototype[setting] = treecle.defaults[setting];
 }
 
 for (let method in treecle) {
