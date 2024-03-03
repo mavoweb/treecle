@@ -12,7 +12,7 @@ import {
  * @returns {object | null} The new child node or null if the child node was a root node
  */
 export default function replace (child, newChild) {
-	const parentPath = getPath(child);
+	const parentPath = getPath.call(this, child);
 	if (parentPath === undefined) {
 		throw new Error("Cannot replace a child node with no parent pointer. Call setParent() on the node or updateParents() on an ancestor to add parent pointers to this node");
 	}
@@ -32,7 +32,7 @@ export default function replace (child, newChild) {
 		parent[property] = newChild;
 	}
 
-	clearParent(child);
-	setPath(newChild, parentPath, {force: true});
+	clearParent.call(this, child);
+	setPath.call(this, newChild, parentPath, {force: true});
 	return newChild;
 }
