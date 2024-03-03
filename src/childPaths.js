@@ -5,7 +5,7 @@ import { getContext } from "./context.js";
  * @param {object | object[]} node or nodes
  * @returns {object | string | number | boolean | null[]}
  */
-export function childPaths (node) {
+export default function childPaths (node) {
 	if (Array.isArray(node)) {
 		// when node is an array, flatten to avoid nested arrays of children
 		return node.flatMap(node => childPaths(node));

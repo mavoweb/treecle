@@ -1,4 +1,4 @@
-import { childPaths } from "./children.js";
+import childPaths from "./childPaths.js";
 import { matches } from "./util.js";
 
 /**

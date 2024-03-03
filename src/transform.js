@@ -1,9 +1,7 @@
-import { childPaths } from "./children.js";
 import { matches } from "./util.js";
-import {
-	clearParents,
-	updateParents,
-} from "./parents.js";
+import childPaths from "./childPaths.js";
+import updateParents from "./updateParents.js";
+import clearParents from "./clearParents.js";
 
 /**
  * Recursively execute a callback on this node and all its children.

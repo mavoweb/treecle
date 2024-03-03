@@ -1,26 +1,4 @@
-import walk from "./walk.js";
-
 const parentMap = new WeakMap();
-
-/**
- * Set properties on each node pointing to its parent node.
- * Required for many Treecle functions, e.g. `closest()`.
- * By default it will skip nodes that already have a parent entirely, but you can set force = true to prevent that.
- * @param {*} node
- * @param {object} [options]
- * @param {boolean} [options.force] Overwrite existing `parent` properties
- */
-export function updateParents (node, options) {
-	walk(node, (node, parentPath) => {
-		// Make sure to pass in null as the parentPath if the node is the root
-		let ret = setPath(node, parentPath ?? null, options);
-
-		if (ret === false) {
-			// We assume that if the node already has a parent, its subtree will also have parents
-			return false;
-		}
-	});
-}
 
 /**
  * Set the `parent` property on a node.
@@ -65,14 +43,4 @@ export function getPath (node) {
  */
 export function clearParent (node) {
 	return parentMap.delete(node);
-}
-
-/**
- * Clear all parent references from a node and its descendants.
- * @param {object} node
- */
-export function clearParents (node) {
-	walk(node, (node) => {
-		clearParent(node);
-	});
 }
