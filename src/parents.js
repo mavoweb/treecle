@@ -1,3 +1,4 @@
+import { updateParents } from "./updateParents.js";
 const parentMap = new WeakMap();
 
 /**
@@ -23,8 +24,7 @@ export function setPath (node, parentPath, { force } = {}) {
  * @returns {object | null | undefined} The parent node, or undefined if the node's parent is unknown
  */
 export function getParent (node) {
-	const {node: parent} = parentMap.get(node) ?? {};
-	return parent;
+	return parentMap.get(node)?.node;
 }
 
 /**

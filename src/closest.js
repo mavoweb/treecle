@@ -4,10 +4,10 @@ export default function closest (node, callback) {
 	let n = node;
 
 	do {
-		if (callback(n)) {
+		if (callback.call(this, n)) {
 			return n;
 		}
-	} while (n = getParent(n));
+	} while (n = getParent.call(this, n));
 
 	return null;
 }

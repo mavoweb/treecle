@@ -10,9 +10,9 @@ import { setPath } from "./parents.js";
  * @param {boolean} [options.force] Overwrite existing `parent` properties
  */
 export default function updateParents (node, options) {
-	walk(node, (node, parentPath) => {
+	walk.call(this, node, (node, parentPath) => {
 		// Make sure to pass in null as the parentPath if the node is the root
-		let ret = setPath(node, parentPath ?? null, options);
+		let ret = setPath.call(this, node, parentPath ?? null, options);
 
 		if (ret === false) {
 			// We assume that if the node already has a parent, its subtree will also have parents

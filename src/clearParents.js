@@ -6,5 +6,5 @@ import { clearParent } from "./parents.js";
  * @param {object} node
  */
 export default function clearParents (node) {
-	walk(node, (node) => clearParent(node));
+	walk.call(this, node, (node) => clearParent.call(this, node));
 }

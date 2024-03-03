@@ -19,15 +19,15 @@ export default function transform (node, transformations, o) {
 	if (!Array.isArray(transformations)) {
 		transformations = [transformations];
 	}
-	clearParents(node);
-	const transformedNode = _transform(node, transformations, o);
-	updateParents(transformedNode);
+	clearParents.call(this, node);
+	const transformedNode = _transform.call(this, node, transformations, o);
+	updateParents.call(this, transformedNode);
 	return transformedNode;
 }
 
 function _transform (node, transformations, o = {}, property, parent) {
 	if (Array.isArray(node)) {
-		return node.map(n => _transform(n, transformations, o, property, parent));
+		return node.map(n => _transform.call(this, n, transformations, o, property, parent));
 	}
 
 	const ignore = o.except && matches(node, o.except);
@@ -46,8 +46,8 @@ function _transform (node, transformations, o = {}, property, parent) {
 
 		node = transformedNode;
 
-		childPaths(node).forEach(path => {
-			node[path.property] = _transform(node[path.property], transformations, o, path.property, node);
+		childPaths.call(this, node).forEach(path => {
+			node[path.property] = _transform.call(this, node[path.property], transformations, o, path.property, node);
 		});
 	}
 

@@ -15,23 +15,23 @@ export default function walk (node, callback, o) {
 		[node, callback, o] = [this.root, node, callback];
 	}
 
-	return _walk(node, callback, o);
+	return _walk.call(this, node, callback, o);
 }
 
 function _walk (node, callback, o = {}, parentPath) {
 	let ignored = o.except && matches(node, o.except);
 
-	if (!ignored && matches(node, o.only)) {
-		let ret = callback(node, parentPath);
+	if (!ignored && matches.call(this, node, o.only)) {
+		let ret = callback.call(this, node, parentPath);
 
 		if (ret !== undefined) {
 			// Callback returned a value, stop walking and return it
 			return ret;
 		}
 
-		for (let childPath of childPaths(node)) {
+		for (let childPath of childPaths.call(this, node)) {
 			const {node: child, property, index} = childPath;
-			_walk(child, callback, o, {node, property, index});
+			_walk.call(this, child, callback, o, {node, property, index});
 		}
 	}
 }

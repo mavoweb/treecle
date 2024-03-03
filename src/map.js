@@ -13,5 +13,5 @@ import transform from "./transform.js";
 export default function map (node, mappings, o) {
 	const cloneFn = (node, property, parent, originalNode) => node === originalNode ? {...node} : node;
 	mappings = [mappings, cloneFn].flat();
-	return transform(node, mappings, o);
+	return transform.call(this, node, mappings, o);
 }
