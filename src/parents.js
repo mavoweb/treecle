@@ -33,7 +33,20 @@ export function getParent (node) {
  * @returns {object | undefined} An object containing the parent node and the property name of the child node in the parent, or undefined if the node's parent is unknown
  */
 export function getPath (node) {
-	return parentMap.get(node);
+	let path = parentMap.get(node);
+
+	if (path === undefined) {
+		// We have no information about the parent
+		if (this?.root) {
+			// We have the root node, update parent pointers for the entire tree
+			updateParents.call(this, this.root);
+
+			// Try again
+			path = parentMap.get(node);
+		}
+	}
+
+	return path;
 }
 
 /**
