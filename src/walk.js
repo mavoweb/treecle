@@ -31,7 +31,12 @@ function _walk (node, callback, o = {}, parentPath) {
 
 		for (let childPath of childPaths.call(this, node)) {
 			const {node: child, property, index} = childPath;
-			_walk.call(this, child, callback, o, {node, property, index});
+			const childResult = _walk.call(this, child, callback, o, {node, property, index});
+
+			if (childResult !== undefined) {
+				// Callback returned a value, stop walking and return it
+				return childResult;
+			}
 		}
 	}
 }
