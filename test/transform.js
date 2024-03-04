@@ -6,10 +6,10 @@ const tree = trees[0];
 
 export default {
 	name: "transform()",
-	run (t, ...args) {
-		transform(t, ...args);
-		console.log(t);
-		return JSON.stringify(t);
+	run (tree, ...args) {
+		tree = copy(tree);
+		transform(tree, ...args);
+		return JSON.stringify(tree);
 	},
 	tests: [
 		{
@@ -21,12 +21,12 @@ export default {
 			args: [
 				tree,
 				(node) => {
-					if (node.name !== "foo") {
+					if (node.name !== "1") {
 						return {...node, name: "foo"};
 					}
 				}
 			],
-			expect: stringifiedTrees[0].replace(/[0-9]/g, 'foo'),
+			expect: stringifiedTrees[0].replace(/[2-9]/g, 'foo'),
 			description: "Rewrite tree of size > 1"
 		}
 	]

@@ -1,8 +1,9 @@
 import updateParents from "../src/updateParents.js";
 import * as parents from "../src/parents.js";
 import trees from "./utils/trees.js";
+import copy from "./utils/copy.js";
 
-const tree = trees[0];
+const tree = copy(trees[0]);
 updateParents(tree);
 
 export default {

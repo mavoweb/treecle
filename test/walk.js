@@ -8,14 +8,14 @@ export default {
 	run () {
 		let ret = [];
 		walk(tree, node => {
-			ret.push(node);
+			ret.push(node.name);
 		});
 		return ret;
 	},
 	tests: [
 		{
 			args: [],
-			expect: []
+			expect: ["1", "2", "4", "5", "3", "6", "7"]
 		}
 	]
 };
