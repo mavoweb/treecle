@@ -17,7 +17,7 @@ export default function children (node) {
 		return [];
 	}
 
-	const childProperties = context.getProperties(node);
+	const childProperties = context.getChildProperties(node);
 
 	if (childProperties) {
 		return childProperties.flatMap(property => node[property] ?? []);
