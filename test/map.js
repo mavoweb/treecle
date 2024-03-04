@@ -26,7 +26,7 @@ export default {
 					}
 				}
 			],
-			expect: [stringifiedTrees[0], stringifiedTrees[0].replace(/[0-9]/g, 'foo')],
+			expect: [stringifiedTrees[0], stringifiedTrees[0].replace(/[0-9]/g, "foo")],
 			description: "Rewrite tree of size > 1"
 		}
 	]

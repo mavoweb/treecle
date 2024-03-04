@@ -5,7 +5,7 @@ const trees = [
 		left: {name: "2", left: {name: "4"}, right: {name: "5"}},
 		right: {name: "3", left: {name: "6"}, right: {name: "7"}}
 	},
-    // tree with array children
+	// tree with array children
 	{
 		type: "multi",
 		children: [
