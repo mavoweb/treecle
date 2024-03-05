@@ -1,34 +1,31 @@
-import jsep from "../node_modules/jsep/dist/jsep.min.js";
+import updateParents from "../src/updateParents.js";
 import * as parents from "../src/parents.js";
+import trees from "./utils/trees.js";
+import copy from "./utils/copy.js";
 
-const ast = jsep("1 + foo(bar.baz, 2)");
-parents.update(ast);
+const tree = copy(trees[0]);
+updateParents(tree);
 
 export default {
 	name: "parents",
 	run (node) {
-		return parents.path(node);
+		return parents.getPath(node);
 	},
 	tests: [
 		{
 			name: "Root node",
-			args: [ast],
+			args: [tree],
 			expect: null
 		},
 		{
 			name: "Non-root node",
-			args: [ast.right],
-			expect: {node: ast, property: "right"}
+			args: [tree.left],
+			expect: {node: tree, property: "left"}
 		},
 		{
 			name: "Leaf node",
-			args: [ast.right.arguments[0].object],
-			expect: {node: ast.right.arguments[0], property: "object"}
-		},
-		{
-			name: "Node with index",
-			args: [ast.right.arguments[0]],
-			expect: {node: ast.right, property: "arguments", index: 0}
+			args: [tree.left.right],
+			expect: {node: tree.left, property: "right"}
 		}
 	]
 };

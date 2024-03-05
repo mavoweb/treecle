@@ -17,7 +17,7 @@ export default function childPaths (node) {
 		return [];
 	}
 
-	const childProperties = context.getProperties(node);
+	const childProperties = context.getChildProperties(node);
 
 	let children = [];
 

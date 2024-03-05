@@ -1,4 +1,4 @@
-import { updateParents } from "./updateParents.js";
+import updateParents from "./updateParents.js";
 const parentMap = new WeakMap();
 
 /**

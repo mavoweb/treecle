@@ -17,7 +17,7 @@ export const defaults = {
 	 */
 	isNode: node => node && typeof node === "object"
 		&& Object.prototype.toString.call(node) === "[object Object]"
-		&& Object.getPrototypeOf(o).constructor?.name === "Object",
+		&& Object.getPrototypeOf(node).constructor?.name === "Object",
 };
 
 export function getContext (context) {

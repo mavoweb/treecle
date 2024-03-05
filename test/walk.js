@@ -1,28 +1,21 @@
-import jsep from "../node_modules/jsep/dist/jsep.min.js";
 import walk from "../src/walk.js";
-import serialize from "../src/serialize.js";
+import trees from "./utils/trees.js";
+
+const tree = trees[0];
 
 export default {
 	name: "walk()",
-	run (str, ...args) {
+	run () {
 		let ret = [];
-		let ast = jsep(str);
-		walk(ast, node => {
-			ret.push(node);
+		walk(tree, node => {
+			ret.push(node.name);
 		});
 		return ret;
 	},
-	map: (arg) => {
-		if (typeof arg === "string") {
-			arg = jsep(arg);
-		}
-
-		return serialize(arg);
-	},
 	tests: [
 		{
-			args: ["1 + (foo * 2)"],
-			expect: ["1 + (foo * 2)", "1", "foo * 2", "foo", "2"]
+			args: [],
+			expect: ["1", "2", "4", "5", "3", "6", "7"]
 		}
 	]
 };
