@@ -47,8 +47,8 @@ export function getByPath (obj, path) {
  * TODO what happens when the path does not exist? a) create it, b) throw an error, c) return undefined
  * @param {object} obj
  * @param {(string | number | Symbol)[]} path
- * @param {*} value
- * @returns {*} The value that was set
+ * @param {any} value
+ * @returns {any} The value that was set
  */
 export function setByPath (obj, path, value) {
 	let parentPath = path.slice();
