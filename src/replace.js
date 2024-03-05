@@ -23,7 +23,8 @@ export default function replace (child, newChild) {
 		return null;
 	}
 
-	const {property, index, node: parent} = parentPath;
+	const {path, node: parent} = parentPath;
+	const [property, index] = path;
 
 	if (index !== undefined) {
 		parent[property][index] = newChild;

@@ -12,12 +12,12 @@ export default {
 		{
 			name: "Root node",
 			args: [tree],
-			expect: [{node: tree.left, property: "left"}, {node: tree.right, property: "right"}]
+			expect: [{node: tree.left, path: ["left"]}, {node: tree.right, path: ["right"]}]
 		},
 		{
 			name: "Non-root node with children",
 			args: [tree.right],
-			expect: [{node: tree.right.left, property: "left"}, {node: tree.right.right, property: "right"}],
+			expect: [{node: tree.right.left, path: ["left"]}, {node: tree.right.right, path: ["right"]}],
 		},
 		{
 			name: "Leaf node",
