@@ -1,66 +1,33 @@
-import jsep from "../node_modules/jsep/dist/jsep.min.js";
 import map from "../src/map.js";
-import serialize from "../src/serialize.js";
+import trees, {stringifiedTrees} from "./utils/trees.js";
+
+const tree = trees[0];
 
 export default {
 	name: "map()",
-	run (str, ...args) {
-		const ast = jsep(str);
-		const mappedAst = map(ast, ...args);
-		return [serialize(ast), serialize(mappedAst)];
+	run (tree, ...args) {
+		const mapped = map(tree, ...args);
+		return [JSON.stringify(tree), JSON.stringify(mapped)];
 	},
 	// Tests expect an array of the form [serialized input AST, expected output AST]
 	// This is to ensure the original AST was not mutated during mapping.
 	tests: [
 		{
-			args: ["foo + bar + baz", () => undefined],
-			expect: ["foo + bar + baz", "foo + bar + baz"],
-			description: "Empty callback"
+			args: [tree, () => undefined],
+			expect: [stringifiedTrees[0], stringifiedTrees[0]],
+			description: "Empty transform"
 		},
 		{
 			args: [
-				"foo.bar + foo.bar.baz",
+				tree,
 				(node) => {
-					if (node.type === "Identifier" && node.name !== "foo") {
+					if (node.name !== "foo") {
 						return {...node, name: "foo"};
 					}
 				}
 			],
-			expect: ["foo.bar + foo.bar.baz",  "foo.foo + foo.foo.foo"],
+			expect: [stringifiedTrees[0], stringifiedTrees[0].replace(/[0-9]/g, "foo")],
 			description: "Rewrite tree of size > 1"
-		},
-		{
-			args: [
-				"foo + bar * baz",
-				(node) => {
-					if (node.type === "BinaryExpression" && node.operator === "*") {
-						return {name: "prod", type: "Identifier"};
-					}
-				}
-			],
-			expect: ["foo + bar * baz", "foo + prod"],
-			description: "Rewrite to different node type"
-		},
-		{
-			args: [
-				"foo + bar * baz",
-				[
-					(node) => {
-						if (node.type === "BinaryExpression" && node.operator === "*") {
-							return {name: "prod", type: "Identifier"};
-						}
-					},
-					{
-						Identifier: (node) => {
-							if (node.name !== "foo") {
-								return {...node, name: "foo"};
-							}
-						}
-					},
-				]
-			],
-			expect: ["foo + bar * baz", "foo + foo"],
-			description: "Use array of callbacks"
 		}
 	]
 };
