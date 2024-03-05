@@ -31,3 +31,29 @@ export function getType (obj) {
 
 	return ret;
 }
+
+/**
+ * Get the value of a property path from an object
+ * @param {object} obj
+ * @param {(string | number | Symbol)[]} path
+ * @returns {any} The value of the property at the given path (or `undefined` if the path does not exist)
+ */
+export function getByPath (obj, path) {
+	return path.reduce((acc, key) => acc?.[key], obj);
+}
+
+/**
+ * Set the value of a property path on an object
+ * TODO what happens when the path does not exist? a) create it, b) throw an error, c) return undefined
+ * @param {object} obj
+ * @param {(string | number | Symbol)[]} path
+ * @param {*} value
+ * @returns {*} The value that was set
+ */
+export function setByPath (obj, path, value) {
+	let parentPath = path.slice();
+	let lastKey = parentPath.pop();
+	const parent = getByPath(obj, parentPath);
+
+	return parent && (parent[lastKey] = value);
+}
