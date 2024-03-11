@@ -60,6 +60,7 @@ export function setByPath (obj, path, value) {
 
 const wildcard = "*";
 
+// handles all the ugly details of getting the child paths, including wildcards
 export function enumerateChildPaths (node, getChildProperties) {
 	const propertyPaths = Array.isArray(getChildProperties) ? getChildProperties : getChildProperties(node);
 	// if no properties are specified, return the keys of the object by default
