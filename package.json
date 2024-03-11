@@ -1,6 +1,6 @@
 {
   "name": "treecle",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Utilities for working with JSON data",
   "type": "module",
   "main": "./dist/treecle.cjs",
