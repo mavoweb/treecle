@@ -57,3 +57,41 @@ export function setByPath (obj, path, value) {
 
 	return parent && (parent[lastKey] = value);
 }
+
+const wildcard = "*";
+
+export function enumerateChildPaths (node, getChildProperties) {
+	const propertyPaths = Array.isArray(getChildProperties) ? getChildProperties : getChildProperties(node);
+	// if no properties are specified, return the keys of the object by default
+	if (!propertyPaths) {
+		return Object.keys(node).map(key => [key]);
+	}
+	const paths = [];
+	console.log(propertyPaths);
+	for (let propertyPath of propertyPaths) {
+		// if it's a flat single property, wrap it in an array
+		propertyPath = Array.isArray(propertyPath) ? propertyPath : [propertyPath];
+		// check for wildcard
+		if (propertyPath[propertyPath.length - 1] === wildcard) {
+			console.log("in here!", propertyPath)
+			// remove the wildcard
+			propertyPath.pop();
+			// get the value of the property path
+			const value = getByPath(node, propertyPath);
+			// if the value is an array, enumerate its items
+			if (Array.isArray(value)) {
+				value.forEach((_, index) => {
+					paths.push([...propertyPath, index]);
+				});
+			}
+			else {
+				// if the value is an object, enumerate its keys
+				paths.push(...Object.keys(value).map(key => [...propertyPath, key]));
+			}
+		}
+		else {
+			paths.push(propertyPath);
+		}
+	}
+	return paths;
+}
