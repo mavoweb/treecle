@@ -3,6 +3,7 @@ import {
 	getPath,
 	setPath,
 } from "./parents.js";
+import { setByPath } from "./util.js";
 
 /**
  * Replaces a child node with a new node, and updates the parent node and parent pointers
@@ -23,15 +24,9 @@ export default function replace (child, newChild) {
 		return null;
 	}
 
-	const {property, index, node: parent} = parentPath;
+	const {path, node: parent} = parentPath;
 
-	if (index !== undefined) {
-		parent[property][index] = newChild;
-	}
-	else {
-		parent[property] = newChild;
-	}
-
+	setByPath(parent, path, newChild);
 	clearParent.call(this, child);
 	setPath.call(this, newChild, parentPath, {force: true});
 	return newChild;

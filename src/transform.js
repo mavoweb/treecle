@@ -46,8 +46,9 @@ function _transform (node, transformations, o = {}, property, parent) {
 
 		node = transformedNode;
 
-		childPaths.call(this, node).forEach(path => {
-			node[path.property] = _transform.call(this, node[path.property], transformations, o, path.property, node);
+		childPaths.call(this, node).forEach(childPath => {
+			const [property] = childPath.path;
+			node[property] = _transform.call(this, node[property], transformations, o, property, node);
 		});
 	}
 

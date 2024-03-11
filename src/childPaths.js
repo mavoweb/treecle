@@ -26,11 +26,11 @@ export default function childPaths (node) {
 			const child = node[property];
 			// When the node is an array, we want to include the index in the result
 			if (Array.isArray(child)) {
-				let childPaths = child.map((c, index) => ({node: c, property, index}));
+				let childPaths = child.map((c, index) => ({node: c, path: [property, index]}));
 				children.push(...childPaths);
 			}
 			else {
-				children.push({node: child, property});
+				children.push({node: child, path: [property]});
 			}
 		}
 	}
@@ -40,11 +40,11 @@ export default function childPaths (node) {
 
 			if (Array.isArray(child)) {
 				// Why not filter first? That would affect the index.
-				let childPaths = child.map((c, index) => (context.isNode(c) ? {node: c, property, index} : null)).filter(Boolean);
+				let childPaths = child.map((c, index) => (context.isNode(c) ? {node: c, path: [property, index]} : null)).filter(Boolean);
 				children.push(...childPaths);
 			}
 			else if (context.isNode(child)) {
-				children.push({node: child, property});
+				children.push({node: child, path: [property]});
 			}
 		}
 	}
