@@ -1,7 +1,7 @@
 import walk from "./walk.js";
 
 /**
- * Reduce a tree to a single value
+ * Recursively reduce a tree to a single value
  * @param {object} node
  * @param {function} callback takes in the current accumulator and node and returns the new accumulator
  * @param {any} initialValue
