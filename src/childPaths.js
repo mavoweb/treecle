@@ -1,4 +1,5 @@
 import { getContext } from "./context.js";
+import { enumerateChildPaths, getByPath } from "./util.js";
 
 /**
  * Get a node's children and the corresponding properties and indices
@@ -17,41 +18,21 @@ export default function childPaths (node) {
 		return [];
 	}
 
-	const childProperties = context.getChildProperties(node);
+	const paths = enumerateChildPaths(node, context.getChildProperties);
 
 	let children = [];
 
-	if (childProperties) {
-		for (const property of childProperties) {
-			const child = node[property];
-			// When the node is an array, we want to include the index in the result
-			if (Array.isArray(child)) {
-				let childPaths = child.map((c, index) => ({node: c, path: [property, index]}));
-				children.push(...childPaths);
-			}
-			else {
-				children.push({node: child, path: [property]});
-			}
+	for (const path of paths) {
+		const child = getByPath(node, path);
+		if (Array.isArray(child)) {
+			const childPaths = child.map((c, index) => context.isNode(c) ? ({node: c, path: [...path, index]}) : null).filter(Boolean);
+			children.push(...childPaths);
 		}
-	}
-	else {
-		for (let property in node) {
-			const child = node[property];
-
-			if (Array.isArray(child)) {
-				// Why not filter first? That would affect the index.
-				let childPaths = child.map((c, index) => (context.isNode(c) ? {node: c, path: [property, index]} : null)).filter(Boolean);
-				children.push(...childPaths);
-			}
-			else if (context.isNode(child)) {
-				children.push({node: child, path: [property]});
-			}
+		else if (context.isNode(child)) {
+			children.push({node: child, path});
 		}
+	
 	}
 
 	return children;
 }
-
-
-
-

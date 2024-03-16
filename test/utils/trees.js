@@ -16,6 +16,18 @@ const trees = [
 				{type: "single", child: {type: "leaf", name: "4"}}
 			]}
 		]
+	},
+	// tree with object children
+	{
+		type: "multi",
+		children: {
+			one: {type: "single", child: {type: "leaf", name: "1"}},
+			two: {type: "single", child: {type: "leaf", name: "2"}},
+			three: {type: "multi", children: {
+				one: {type: "single", child: {type: "leaf", name: "3"}},
+				two: {type: "single", child: {type: "leaf", name: "4"}}
+			}}
+		}
 	}
 ];
 
