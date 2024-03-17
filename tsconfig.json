@@ -1,9 +1,6 @@
 {
 	"compilerOptions": {
-		"allowJs": true,
-		"lib": [
-			"es2015"
-		]
+		"allowJs": true
 	},
 	"include": [
 		"src/**/*.js"

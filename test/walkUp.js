@@ -1,7 +1,7 @@
 import walkUp from "../src/walkUp.js";
 import trees from "./utils/trees.js";
 import updateParents from "../src/updateParents.js";
-import copy from "./utils/copy.js"
+import copy from "./utils/copy.js";
 
 const tree = copy(trees[0]);
 updateParents(tree);
@@ -13,14 +13,14 @@ export default {
 	},
 	tests: [
 		{
-            name: "No callback",
+			name: "No callback",
 			args: [tree.right, () => {}],
-			expect: tree
+			expect: undefined
 		},
-        {
-            name: "Callback returns a value",
-            args: [tree.right, n => n.name === "1" ? n : undefined],
-            expect: tree
-        }
+		{
+			name: "Callback returns a value",
+			args: [tree.right, n => n.name === "1" ? n : undefined],
+			expect: tree
+		}
 	]
 };
