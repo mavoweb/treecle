@@ -8,12 +8,12 @@ import clearParents from "./clearParents.js";
  * If the callback returns a non-undefined value, it will overwrite the node.
  * This function will not modify the root node of the input tree.
  *
- * @param {object | object[]} node Node or array of nodes
+ * @param {Node | Node[]} node Node or array of nodes
  * @param {Object.<string, function> | function(object, string, object?, object) | (Object.<string, function> | function(object, string, object?, object))[]} transformations A map of node types to callbacks, or a single callback that will be called for all node types, or a list of either, which will be applied in order
  * @param {object} [o]
  * @param { function | function[] } [o.only] Only walk nodes of this type
  * @param { function | function[] } [o.except] Ignore walking nodes of these types
- * @returns {object | object[]} The transformation's return value on the root node(s) of the input tree, or the root node(s) if the transformation did not return a value
+ * @returns {Node | Node[]} The transformation's return value on the root node(s) of the input tree, or the root node(s) if the transformation did not return a value
  */
 export default function transform (node, transformations, o) {
 	if (!Array.isArray(transformations)) {
