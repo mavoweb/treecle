@@ -1,4 +1,4 @@
-import { getParent }from "./parents.js";
+import { getParent } from "./parents.js";
 
 /**
  * Walk up the tree from the given node, calling the callback on each node.
