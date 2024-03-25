@@ -1,3 +1,5 @@
+import { getParent } from "./parents.js";
+
 export function matches (node, filter) {
 	if (!filter) {
 		return true;
@@ -56,4 +58,21 @@ export function setByPath (obj, path, value) {
 	const parent = getByPath(obj, parentPath);
 
 	return parent && (parent[lastKey] = value);
+}
+
+const message = "Node has no parent pointers set. Call setParent() on the node or updateParents() on an ancestor to add parent pointers to this node";
+
+/**
+ * Check a node to see if it has parent pointers set
+ * @param {Node} node the node to check for parents
+ * @param {"error" | "warn"} severity the severity of the issue
+ * @throws {Error} if the severity is "error" and the node has no parent
+ */
+export function checkParentPointers (node, severity = "error") {
+	if (!getParent(node)) {
+		if (severity === "error") {
+			throw new Error(message);
+		}
+		// TODO add a warning here in the future
+	}
 }

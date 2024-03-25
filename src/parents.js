@@ -25,7 +25,8 @@ export function setPath (node, parentPath, { force } = {}) {
  * @returns {Node | null | undefined} The parent node, or undefined if the node's parent is unknown
  */
 export function getParent (node) {
-	return parentMap.get(node)?.node;
+	const path = getPath.call(this, node);
+	return path?.node;
 }
 
 /**
