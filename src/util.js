@@ -71,7 +71,7 @@ const baseMessage = "Call setParent() on the node or updateParents() on an ances
  */
 export function checkParentPointers (node, message, severity = "error") {
 	if (getParent(node) === undefined) {
-		message = `${baseMessage} ${message}`;
+		message = `${message || "No parent pointers have been set."} ${baseMessage}`;
 		if (severity === "error") {
 			throw new Error(message);
 		}
