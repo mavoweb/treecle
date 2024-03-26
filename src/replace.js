@@ -14,7 +14,7 @@ import { checkParentPointers, setByPath } from "./util.js";
  */
 export default function replace (child, newChild) {
 	const parentPath = getPath.call(this, child);
-	checkParentPointers.call(this, child);
+	checkParentPointers.call(this, child, "Cannot replace a child node with no parent pointer.");
 
 	// A root node was passed in
 	if (parentPath === null) {

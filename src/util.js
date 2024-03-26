@@ -60,16 +60,18 @@ export function setByPath (obj, path, value) {
 	return parent && (parent[lastKey] = value);
 }
 
-const message = "Node has no parent pointers set. Call setParent() on the node or updateParents() on an ancestor to add parent pointers to this node";
+const baseMessage = "Call setParent() on the node or updateParents() on an ancestor to add parent pointers to this node";
 
 /**
  * Check a node to see if it has parent pointers set
  * @param {Node} node the node to check for parents
+ * @param {string} message the additional message to display if the node has no parent
  * @param {"error" | "warn"} severity the severity of the issue
  * @throws {Error} if the severity is "error" and the node has no parent
  */
-export function checkParentPointers (node, severity = "error") {
-	if (!getParent(node)) {
+export function checkParentPointers (node, message, severity = "error") {
+	if (getParent(node) === undefined) {
+		message = `${baseMessage} ${message}`;
 		if (severity === "error") {
 			throw new Error(message);
 		}
