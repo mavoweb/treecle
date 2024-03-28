@@ -1,4 +1,5 @@
 import { getParent } from "./parents.js";
+import { assertParentPointers } from "./util.js";
 
 /**
  * Walk up the tree from the given node, calling the callback on each node.
@@ -12,8 +13,7 @@ export default function walkUp (node, callback) {
 		if (ret !== undefined) {
 			return ret;
 		}
-		const parent = getParent.call(this, node);
-		// TODO: what should happen if parent is undefined (meaning no parent pointers have been set?)
-		node = parent;
+		assertParentPointers.call(this, node, "Cannot walk up the tree from a node with no parent pointer.");
+		node = getParent.call(this, node);
 	}
 }
