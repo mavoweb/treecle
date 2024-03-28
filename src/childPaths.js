@@ -2,8 +2,8 @@ import { getContext } from "./context.js";
 
 /**
  * Get a node's children and the corresponding properties and indices
- * @param {object | object[]} node or nodes
- * @returns {object | string | number | boolean | null[]}
+ * @param {Node | Node[]} node or nodes
+ * @returns {{node: Node, path: Array<string | number>}[]} array of objects with node and path properties
  */
 export default function childPaths (node) {
 	if (Array.isArray(node)) {

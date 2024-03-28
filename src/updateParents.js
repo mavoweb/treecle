@@ -5,9 +5,10 @@ import { setPath } from "./parents.js";
  * Set properties on each node pointing to its parent node.
  * Required for many Treecle functions, e.g. `closest()`.
  * By default it will skip nodes that already have a parent entirely, but you can set force = true to prevent that.
- * @param {*} node
+ * @param {Node} node
  * @param {object} [options]
  * @param {boolean} [options.force] Overwrite existing `parent` properties
+ * @returns {void}
  */
 export default function updateParents (node, options) {
 	walk.call(this, node, (node, parentPath) => {

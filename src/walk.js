@@ -4,11 +4,12 @@ import { matches } from "./util.js";
 /**
  * Recursively execute a callback on this node and all its children.
  * If the callback returns a non-undefined value, walking ends and the value is returned
- * @param {object} [this.root] node
- * @param {function(object, object?)} callback
+ * @param {Node} [this.root] node
+ * @param {function(node, parentPath): any} callback
  * @param {object} [o]
  * @param { function | function[] } [o.only] Only walk nodes that match this
  * @param { function | function[] } [o.except] Ignore nodes that match this
+ * @returns {any} the value returned by the callback, or `undefined` if no value was returned
  */
 export default function walk (node, callback, o) {
 	if (typeof node === "function" && this?.root) {
