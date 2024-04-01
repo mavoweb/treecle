@@ -69,7 +69,7 @@ const baseMessage = "Call setParent() on the node or updateParents() on an ances
  * @throws {Error} if the severity is "error" and the node has no parent
  */
 export function assertParentPointers (node, message) {
-	if (getParent(node) === undefined) {
+	if (getParent.call(this, node) === undefined) {
 		message = `${message || "No parent pointers have been set."} ${baseMessage}`;
 		throw new Error(message);
 		// TODO add a warning here in the future
