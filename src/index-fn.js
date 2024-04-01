@@ -11,3 +11,4 @@ export {default as map}           from "./map.js";
 export {default as walk}          from "./walk.js";
 export {default as transform}     from "./transform.js";
 export {default as reduce}        from "./reduce.js";
+export {default as walkUp}        from "./walkUp.js";
