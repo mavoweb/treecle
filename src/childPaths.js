@@ -1,7 +1,7 @@
 import { getContext } from "./context.js";
 
 /**
- * Get a node's children and the corresponding properties and indices
+ * Get a node's children and the corresponding properties and indices that lead from this node to its children.
  * @param {Node | Node[]} node or nodes
  * @returns {{node: Node, path: Array<string | number>}[]} array of objects with node and path properties
  */

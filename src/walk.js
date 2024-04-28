@@ -2,10 +2,10 @@ import childPaths from "./childPaths.js";
 import { matches } from "./util.js";
 
 /**
- * Recursively execute a callback on this node and all its children.
+ * Recursively execute a callback on this node and all its children, in a depth-first order.
  * If the callback returns a non-undefined value, walking ends and the value is returned
  * @param {Node} [this.root] node
- * @param {function(node, parentPath): any} callback
+ * @param {(node: Node, parentPath: Array<string | number>) => any} callback
  * @param {object} [o]
  * @param { function | function[] } [o.only] Only walk nodes that match this
  * @param { function | function[] } [o.except] Ignore nodes that match this

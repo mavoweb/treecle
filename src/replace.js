@@ -6,9 +6,10 @@ import {
 import { assertParentPointers, setByPath } from "./util.js";
 
 /**
- * Replaces a child node with a new node, and updates the parent node and parent pointers
- * @param {Node} child
- * @param {Node} newChild
+ * Replaces the subtree rooted at a given node with a new node.
+ * The function updates parent pointers accordingly.
+ * @param {Node} child The node to replace
+ * @param {Node} newChild The new node to replace the old node with
  * @throws {Error} If the child node does not have a parent node set
  * @returns {Node | null} The new child node or null if the child node was a root node
  */
