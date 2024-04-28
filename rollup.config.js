@@ -3,9 +3,7 @@ import pkg from "./package.json";
 const BASE_FILENAME = pkg.name;
 const IIFE_NAME = pkg.name.replace(/^./, $0 => $0.toUpperCase());
 
-function bundle (format, filenameAddition = "") {
-	let filename = BASE_FILENAME;
-
+function bundle (filename, format, filenameAddition = "") {
 	if (format !== "esm" && filenameAddition) {
 		filename += "." + filenameAddition;
 	}
@@ -21,8 +19,9 @@ function bundle (format, filenameAddition = "") {
 export default {
 	input: "src/index.js",
 	output: [
-		bundle("iife", "global"),
-		bundle("esm"),
-		bundle("cjs", "cjs"),
+		bundle(BASE_FILENAME, "iife", "global"),
+		bundle(BASE_FILENAME, "esm"),
+		bundle(BASE_FILENAME, "cjs", "cjs"),
+		bundle("index.js", "esm")
 	],
 };
