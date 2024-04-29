@@ -62,9 +62,9 @@ You can customize this by importing the `config` object and setting `config.getC
 You can also override `config.isNode(node)` to be more specific about what should be considered a node.
 By default it considers all plain objects (i.e. not instances of a class other than `Object`) are cobsidered nodes.
 
-## Examples
+## Configuration
 
-The following examples go over how to setup and customize Treecle, along with how to use its utility functions to perform various operations.
+The following sections detail the different ways to configure Treecle.
 
 ### Default configuration
 
