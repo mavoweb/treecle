@@ -4,6 +4,12 @@
 import * as treecle from "./index-fn.js";
 
 export default class Treecle {
+	/**
+	 * Create a new instance of a Treecle context with the given root node and configuration.
+	 * @param {Node | undefined} root The root node of the tree
+	 * @param {{getChildProperties: (node: Node) => Array<string>, isNode: (node: Node) => boolean} | undefined} config The configuration object for this context
+	 * @returns {Treecle} A new instance of a Treecle context
+	 */
 	constructor (root, config) {
 		if (arguments.length === 1) {
 			[config, root] = [root, ];
