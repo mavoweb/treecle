@@ -62,6 +62,97 @@ You can customize this by importing the `config` object and setting `config.getC
 You can also override `config.isNode(node)` to be more specific about what should be considered a node.
 By default it considers all plain objects (i.e. not instances of a class other than `Object`) are cobsidered nodes.
 
+## Configuration
+
+The following sections detail the different ways to configure Treecle.
+
+### Default configuration
+
+This example shows how to use Treecle right out of the box, with the default configuration assuming that all objects are child nodes.
+
+```js
+import { find } from "treecle";
+
+const tree = {
+  value: 1,
+  left: {
+	value: 2,
+  },
+  right: {
+	value: 3,
+  },
+};
+
+const node = find(tree, (node) => node.value === 3);
+
+console.log(node); // { value: 3 }
+```
+
+### Providing custom configuration
+
+This example shows how to customize Treecle to work with a tree-like object where children are stored in an array called `children`.
+
+```js
+import Treecle, { find } from "treecle";
+
+const tree = {
+	value: 1,
+	type: "root",
+	children: [
+		{
+			type: "leaf",
+			value: 2,
+		},
+		{
+			type: "leaf",
+			value: 3
+		}
+	]
+}
+
+// Create a new instance of Treecle with custom configuration
+const treecle = new Treecle({
+	getChildProperties: node => node.type === "leaf" ? [] : ["children"],
+	isNode: node => Boolean(node.value)
+});
+
+const node = find.call(treecle, tree, node => node.value === 3);
+
+console.log(node); // { type: 'leaf', value: 3 }
+```
+
+### Permanently override configuration
+
+If your tree schema will never change, you can also choose to permanently override the configuration to avoid having to call all Treecle's functions with a context object passed in.
+
+```js
+import { find, defaults } from "treecle";
+
+// Override the default configuration permanently
+defaults.getChildProperties = node => node.type === "leaf" ? [] : ["children"];
+defaults.isNode = node => Boolean(node.value);
+
+
+const tree = {
+	value: 1,
+	type: "root",
+	children: [
+		{
+			type: "leaf",
+			value: 2,
+		},
+		{
+			type: "leaf",
+			value: 3
+		}
+	]
+}
+
+const node = find(tree, node => node.value === 3);
+
+console.log(node); // { type: "leaf", value: 3 }
+```
+
 <script type=module>
 // Create global variable to facilitate experimentation
 import * as treecle from "./src/index.js";
