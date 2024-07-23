@@ -14,7 +14,8 @@
     "watch:html": "npx @11ty/eleventy --config=.eleventy.cjs --watch",
     "watch": "npm run watch:html",
     "lint": "eslint . --ext .js --ext .ts --ext .cjs --fix",
-    "prepack": "npm run build"
+    "prepack": "npm run build",
+    "release": "release-it"
   },
   "repository": {
     "type": "git",
